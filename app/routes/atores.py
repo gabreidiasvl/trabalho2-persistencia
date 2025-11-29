@@ -15,8 +15,8 @@ def create_ator(ator: Ator, session: Session = Depends(get_session)):
     return ator
 
 @router.get("/", response_model=List[Ator])
-def list_atores(session: Session = Depends(get_session)):
-    return session.exec(select(Ator)).all()
+def list_atores(skip: int = 0, limit: int = 10, session: Session = Depends(get_session)):
+    return session.exec(select(Ator).offset(skip).limit(limit)).all()
 
 @router.get("/{ator_id}/filmes", response_model=List[Filme])
 def filmes_do_ator(ator_id: int, session: Session = Depends(get_session)):
@@ -44,3 +44,4 @@ def delete_ator(ator_id: int, session: Session = Depends(get_session)):
     session.delete(ator_db)
     session.commit()
     return {"message": "Ator deletado com sucesso"}
+    

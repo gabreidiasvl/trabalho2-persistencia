@@ -14,8 +14,8 @@ def create_avaliacao(avaliacao: Avaliacao, session: Session = Depends(get_sessio
     return avaliacao
 
 @router.get("/", response_model=List[Avaliacao])
-def list_avaliacoes(session: Session = Depends(get_session)):
-    return session.exec(select(Avaliacao)).all()
+def list_avaliacoes(skip: int = 0, limit: int = 10, session: Session = Depends(get_session)):
+    return session.exec(select(Avaliacao).offset(skip).limit(limit)).all()
 
 # CRUD: Deletar (Delete)""
 @router.delete("/{avaliacao_id}")
