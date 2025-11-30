@@ -17,7 +17,6 @@ def create_avaliacao(avaliacao: Avaliacao, session: Session = Depends(get_sessio
 def list_avaliacoes(skip: int = 0, limit: int = 10, session: Session = Depends(get_session)):
     return session.exec(select(Avaliacao).offset(skip).limit(limit)).all()
 
-# CRUD: Deletar (Delete)""
 @router.delete("/{avaliacao_id}")
 def delete_avaliacao(avaliacao_id: int, session: Session = Depends(get_session)):
     avaliacao_db = session.get(Avaliacao, avaliacao_id)
